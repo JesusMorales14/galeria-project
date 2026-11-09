@@ -3,7 +3,7 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import prettier from "eslint-config-prettier";
 import globals from "globals";
-import { maintainabilityRules, testFileOverrides } from "./rules.mjs";
+import { maintainabilityRules, testFileOverrides, typescriptRules } from "./rules.mjs";
 
 /** Config para paquetes TypeScript sin Next.js (ui, api-client). */
 export default defineConfig([
@@ -13,7 +13,7 @@ export default defineConfig([
   {
     rules: {
       ...maintainabilityRules,
-      "@typescript-eslint/consistent-type-imports": "error",
+      ...typescriptRules,
     },
   },
   {

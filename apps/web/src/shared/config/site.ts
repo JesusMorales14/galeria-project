@@ -2,6 +2,7 @@
 export const siteConfig = {
   name: "Galería",
   locale: "es",
+  repositoryUrl: "https://github.com/JesusMorales14/galeria-project",
   description:
     "Explora la colección del Art Institute of Chicago: busca obras, míralas en alta resolución y guarda tus favoritas.",
 } as const;

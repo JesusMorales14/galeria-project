@@ -3,7 +3,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import prettier from "eslint-config-prettier";
-import { maintainabilityRules, testFileOverrides } from "./rules.mjs";
+import { maintainabilityRules, testFileOverrides, typescriptRules } from "./rules.mjs";
 import { layerBoundaryRules } from "./boundaries.mjs";
 
 /**
@@ -18,7 +18,7 @@ export default defineConfig([
   {
     rules: {
       ...maintainabilityRules,
-      "@typescript-eslint/consistent-type-imports": "error",
+      ...typescriptRules,
     },
   },
   ...layerBoundaryRules,
