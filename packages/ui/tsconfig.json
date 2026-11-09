@@ -1,4 +1,4 @@
 {
   "extends": "@galeria/config/tsconfig/library.json",
-  "include": ["src"]
+  "include": ["src", "test", ".storybook", "vitest.config.mts"]
 }

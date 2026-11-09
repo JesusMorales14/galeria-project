@@ -1,1 +1,1 @@
-export { default } from "@galeria/config/eslint/base";
+export { default } from "@galeria/config/eslint/react";

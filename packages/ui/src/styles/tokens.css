@@ -1,0 +1,111 @@
+/*
+ * Tokens de Galería: "sala de museo".
+ * Pared cálida, tinta casi negra y un único acento burdeos. La obra manda.
+ * Se consumen como utilidades de Tailwind (bg-wall, text-ink, font-display…)
+ * o como variables CSS (var(--color-ink)).
+ */
+
+:root {
+  --wall: #f4f1ea; /* yeso cálido: fondo de página */
+  --surface: #fbfaf7; /* superficies elevadas: formularios, visor */
+  --ink: #1c1b18; /* texto principal */
+  --ink-muted: #5e5a52; /* cartelas, metadatos (6,3:1 sobre wall) */
+  --line: #d9d3c7; /* separadores y bordes */
+  --accent: #7b2d26; /* burdeos: enlaces, foco, estado activo */
+  --accent-ink: #fbfaf7; /* texto sobre acento */
+  --danger: #8f1d1d;
+  --placeholder: #e7e2d8; /* hueco de imagen mientras carga */
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --wall: #141311; /* sala oscura */
+    --surface: #1c1b18;
+    --ink: #ede8df;
+    --ink-muted: #a39c90;
+    --line: #34312c;
+    --accent: #d99a8c;
+    --accent-ink: #141311;
+    --danger: #f0a8a0;
+    --placeholder: #24221e;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-wall: var(--wall);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-danger: var(--danger);
+  --color-placeholder: var(--placeholder);
+
+  --font-display: var(--font-newsreader, "Newsreader Variable"), "Iowan Old Style", Georgia, serif;
+  --font-sans:
+    var(--font-instrument, "Instrument Sans Variable"), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-control: 2px;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme {
+  --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-title: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
+  --text-title--line-height: 1.1;
+  --text-title--letter-spacing: -0.02em;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.35;
+}
+
+@layer base {
+  html {
+    background: var(--wall);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  input,
+  select,
+  textarea {
+    caret-color: var(--accent);
+    accent-color: var(--accent);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

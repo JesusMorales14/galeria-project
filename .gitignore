@@ -31,3 +31,6 @@ Claude outputs/
 
 # respuestas reales capturadas para comparar
 packages/api-client/test/fixtures/captured/
+
+# storybook
+storybook-static/

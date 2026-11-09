@@ -20,3 +20,12 @@ export const testFileOverrides = {
     "max-lines-per-function": "off",
   },
 };
+
+/** Convenciones de TypeScript compartidas. */
+export const typescriptRules = {
+  "@typescript-eslint/consistent-type-imports": "error",
+  "@typescript-eslint/no-unused-vars": [
+    "error",
+    { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+  ],
+};
