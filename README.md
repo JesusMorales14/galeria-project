@@ -15,7 +15,7 @@ Explorador de la colección pública del [Art Institute of Chicago](https://api.
 | Accesibilidad      | WCAG 2.2 AA: axe en tests de componentes, Storybook y e2e; visor de zoom operable con teclado             |
 | Rendimiento        | IIIF a ancho exacto, `srcset`, CLS 0, Lighthouse CI con presupuestos                                      |
 | Estado sin backend | Colecciones en IndexedDB detrás de un repositorio, sincronizadas entre pestañas y compartibles por URL    |
-| Calidad            | 200 tests unitarios y de integración + 20 e2e, cobertura mínima del 80 %, CI en cada PR                   |
+| Calidad            | 200 tests unitarios y de integración + 24 e2e, cobertura mínima del 80 %, CI en cada PR                   |
 | Observabilidad     | Sentry con source maps, contexto sin datos personales e incidente simulado documentado                    |
 
 ## Arquitectura
@@ -84,12 +84,12 @@ Variables de entorno: [`apps/web/.env.example`](apps/web/.env.example).
 
 ## Estrategia de pruebas
 
-| Nivel       | Herramienta                                     | Qué verifica                                                                                  | Cuántas                   |
-| ----------- | ----------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------- |
-| Unitarias   | Vitest                                          | Contrato y normalización, filtros de la URL, reducer del zoom, reglas de colecciones          | Muchas, rápidas           |
-| Integración | Vitest + Testing Library + MSW + fake-indexeddb | Páginas con la API simulada; servicio de colecciones contra IndexedDB y memoria               | Bastantes                 |
-| Componentes | Testing Library + axe                           | Lo que el usuario ve y hace, y accesibilidad                                                  | Una por componente        |
-| End-to-end  | Playwright + axe                                | Buscar y abrir, visor con teclado, colecciones compartidas, todo con teclado, búsqueda sin JS | 4 flujos × 2 dispositivos |
+| Nivel       | Herramienta                                     | Qué verifica                                                                                                           | Cuántas                          |
+| ----------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | -------------------------------- |
+| Unitarias   | Vitest                                          | Contrato y normalización, filtros de la URL, reducer del zoom, reglas de colecciones                                   | Muchas, rápidas                  |
+| Integración | Vitest + Testing Library + MSW + fake-indexeddb | Páginas con la API simulada; servicio de colecciones contra IndexedDB y memoria                                        | Bastantes                        |
+| Componentes | Testing Library + axe                           | Lo que el usuario ve y hace, y accesibilidad                                                                           | Una por componente               |
+| End-to-end  | Playwright + axe                                | Buscar y abrir, visor con teclado, colecciones compartidas, todo con teclado, búsqueda sin JS; humo contra la API real | 4 flujos + humo × 2 dispositivos |
 
 Por qué no todo es e2e: los e2e son lentos y frágiles. Cubren los flujos críticos de punta a punta; las reglas y los casos límite se prueban más abajo, donde fallan rápido y señalan la causa exacta.
 
