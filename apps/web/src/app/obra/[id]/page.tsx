@@ -6,6 +6,7 @@ import {
   artworkMetadata,
   parseArtworkId,
 } from "@/features/artwork";
+import { SaveToCollection } from "@/features/collections";
 import { getArtwork } from "@/shared/api";
 import { FEATURED_ARTWORK_IDS } from "@/shared/config";
 
@@ -28,7 +29,12 @@ export default function ArtworkPage({ params }: PageProps<"/obra/[id]">) {
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-col gap-20 px-4 py-10 sm:px-8 sm:py-14">
       <Suspense fallback={<ArtworkDetailSkeleton />}>
-        <ArtworkPageSection params={params} />
+        <ArtworkPageSection
+          params={params}
+          renderActions={(artwork) => (
+            <SaveToCollection artworkId={artwork.id} artworkTitle={artwork.title} />
+          )}
+        />
       </Suspense>
     </main>
   );

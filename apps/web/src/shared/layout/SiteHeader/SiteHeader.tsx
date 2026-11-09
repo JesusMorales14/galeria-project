@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { siteConfig } from "@/shared/config";
 import { NavLink } from "./NavLink";
+import { navLinkStyles } from "./navLinkStyles";
 import { NAV_ITEMS } from "./navigation";
 
 export function SiteHeader() {
@@ -14,7 +16,16 @@ export function SiteHeader() {
           <ul className="flex items-baseline gap-6">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
-                <NavLink {...item} />
+                {/* El enlace activo depende de la URL: el HTML estático lleva la versión sin marcar. */}
+                <Suspense
+                  fallback={
+                    <Link href={item.href} className={navLinkStyles(false)}>
+                      {item.label}
+                    </Link>
+                  }
+                >
+                  <NavLink {...item} />
+                </Suspense>
               </li>
             ))}
           </ul>

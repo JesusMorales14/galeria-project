@@ -1,0 +1,1 @@
+export { SharedCollectionSection } from "./SharedCollectionSection";
