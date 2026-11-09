@@ -16,7 +16,9 @@
     "@galeria/ui": "workspace:*",
     "next": "16.4.5",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@galeria/config": "workspace:*",
@@ -29,6 +31,7 @@
     "@vitejs/plugin-react": "^6.2.1",
     "eslint": "^9.39.5",
     "jsdom": "^31.0.0",
+    "msw": "^3.0.4",
     "tailwindcss": "^4.3.5",
     "typescript": "^5.9.3",
     "vite-tsconfig-paths": "^6.1.1",

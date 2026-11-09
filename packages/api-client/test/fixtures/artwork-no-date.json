@@ -1,0 +1,24 @@
+{
+  "data": {
+    "id": 100002,
+    "title": "Untitled",
+    "artist_title": "Unknown artist",
+    "artist_display": null,
+    "date_display": null,
+    "date_start": null,
+    "date_end": null,
+    "image_id": "aaaa-bbbb",
+    "thumbnail": { "lqip": null, "width": 1200, "height": 1600, "alt_text": null },
+    "is_public_domain": true,
+    "artwork_type_title": "Drawing and Watercolor",
+    "medium_display": null,
+    "dimensions": null,
+    "place_of_origin": null,
+    "description": null,
+    "short_description": "A small study.",
+    "credit_line": null,
+    "department_title": null,
+    "style_title": null
+  },
+  "config": { "iiif_url": "https://www.artic.edu/iiif/2", "website_url": "http://www.artic.edu" }
+}

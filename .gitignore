@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # carpeta de salidas de la app de Claude
 Claude outputs/
+
+# respuestas reales capturadas para comparar
+packages/api-client/test/fixtures/captured/
