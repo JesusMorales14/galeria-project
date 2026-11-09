@@ -25,3 +25,6 @@ next-env.d.ts
 *.pem
 npm-debug.log*
 pnpm-debug.log*
+
+# carpeta de salidas de la app de Claude
+Claude outputs/
