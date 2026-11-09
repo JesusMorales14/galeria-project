@@ -14,4 +14,15 @@ describe("HomeIntro", () => {
 
     expect(screen.getByText("Explora la colección.")).toBeDefined();
   });
+
+  it("lleva a las dos tareas principales: buscar y colecciones", () => {
+    render(<HomeIntro title="Galería" description="x" />);
+
+    expect(screen.getByRole("link", { name: "Buscar en la colección" }).getAttribute("href")).toBe(
+      "/buscar",
+    );
+    expect(screen.getByRole("link", { name: "Ver mis colecciones" }).getAttribute("href")).toBe(
+      "/colecciones",
+    );
+  });
 });

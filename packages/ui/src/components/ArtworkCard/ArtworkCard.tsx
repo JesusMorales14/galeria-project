@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { ElementType, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 
 export type ArtworkCardProps = {
@@ -9,7 +9,7 @@ export type ArtworkCardProps = {
   /** La imagen ya resuelta (ArtworkImage u otra). La tarjeta no sabe de dónde viene. */
   media: ReactNode;
   /** Componente de enlace del router (p. ej. next/link). Por defecto, <a>. */
-  linkComponent?: ElementType<ComponentPropsWithoutRef<"a">>;
+  linkComponent?: ElementType<{ href: string; className?: string; children?: ReactNode }>;
   headingLevel?: 2 | 3;
   className?: string;
 };
