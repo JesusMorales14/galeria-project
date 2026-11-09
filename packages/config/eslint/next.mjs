@@ -15,7 +15,7 @@ import { layerBoundaryRules } from "./boundaries.mjs";
 export default defineConfig([
   ...nextVitals,
   ...nextTs,
-  { rules: jsxA11y.flatConfigs.recommended.rules },
+  { files: ["**/*.{js,jsx,mjs,ts,tsx,mts,cts}"], rules: jsxA11y.flatConfigs.recommended.rules },
   {
     rules: {
       ...maintainabilityRules,
@@ -24,8 +24,12 @@ export default defineConfig([
   },
   ...layerBoundaryRules,
   {
-    files: ["e2e/**/*.mjs", "*.config.{js,mjs}"],
+    files: ["e2e/**/*.mjs", "scripts/**/*.mjs", "*.config.{js,mjs}"],
     languageOptions: { globals: globals.node },
+  },
+  {
+    files: ["**/*.cjs"],
+    languageOptions: { sourceType: "commonjs", globals: globals.node },
   },
   testFileOverrides,
   prettier,
