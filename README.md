@@ -67,7 +67,17 @@ pnpm --filter @galeria/web mock:api        # API simulada en http://localhost:40
 AIC_API_BASE_URL=http://localhost:4010/api/v1 pnpm dev
 ```
 
-Variables de entorno: [`apps/web/.env.example`](apps/web/.env.example).
+En **Windows (PowerShell)** las variables se definen así:
+
+```powershell
+pnpm --filter @galeria/web mock:api                       # en una terminal
+$env:AIC_API_BASE_URL = "http://localhost:4010/api/v1"   # en otra
+pnpm dev
+```
+
+Variables de entorno: [`apps/web/.env.example`](apps/web/.env.example). Antes de los e2e, instala el navegador una vez con `pnpm --filter @galeria/web e2e:install`.
+
+**VS Code:** al abrir el proyecto, acepta las extensiones recomendadas (`.vscode/extensions.json`) y elige «Use Workspace Version» de TypeScript. Si ves `PageProps` o `LayoutProps` sin definir, ejecuta `pnpm install` (genera los tipos de rutas con `next typegen`).
 
 ## Scripts
 
