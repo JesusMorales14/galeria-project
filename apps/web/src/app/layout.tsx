@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { siteConfig } from "@/shared/config";
+import { siteConfig, siteUrl } from "@/shared/config";
 import { SiteFooter, SiteHeader, SkipLink } from "@/shared/layout";
 import { instrumentSans, newsreader } from "@/shared/ui/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: siteUrl(),
   title: {
     default: siteConfig.name,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  openGraph: { siteName: siteConfig.name, locale: "es_ES", type: "website" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
