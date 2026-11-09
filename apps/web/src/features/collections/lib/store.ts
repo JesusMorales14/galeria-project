@@ -47,7 +47,10 @@ export function subscribe(listener: () => void): () => void {
   }
   return () => {
     listeners.delete(listener);
-    if (listeners.size === 0) channel?.close();
+    if (listeners.size === 0) {
+      channel?.close();
+      channel = null; // un canal cerrado no admite postMessage
+    }
   };
 }
 

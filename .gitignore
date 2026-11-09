@@ -37,3 +37,7 @@ storybook-static/
 
 # lighthouse ci
 .lighthouseci/
+
+# playwright
+playwright-report/
+test-results/

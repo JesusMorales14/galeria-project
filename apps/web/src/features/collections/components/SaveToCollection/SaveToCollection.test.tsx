@@ -1,4 +1,4 @@
-import "fake-indexeddb/auto";
+import { IDBFactory } from "fake-indexeddb";
 import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -7,7 +7,8 @@ import { SaveToCollection } from "./SaveToCollection";
 
 beforeEach(() => {
   resetStoreForTests();
-  indexedDB.deleteDatabase("galeria");
+  // IndexedDB nuevo en cada test: sin datos ni conexiones de tests anteriores.
+  globalThis.indexedDB = new IDBFactory();
 });
 
 describe("SaveToCollection", () => {
