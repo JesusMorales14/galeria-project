@@ -14,11 +14,7 @@ const fileSchema = z.object({
   collections: z.array(collectionSchema).max(200),
 });
 
-/** Copia de seguridad en JSON: el usuario no depende de un solo navegador. */
-export function exportCollections(collections: Collection[]): string {
-  return JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), collections }, null, 2);
-}
-
+/** Valida un archivo importado. Usa Zod: se carga solo cuando el usuario elige un archivo. */
 export function parseImport(text: string): { ok: true; collections: Collection[] } | { ok: false } {
   try {
     const parsed = fileSchema.safeParse(JSON.parse(text));

@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { resetStoreForTests } from "../../lib/store";
-import { exportCollections } from "../../lib/transfer";
+import { exportCollections } from "../../lib/exportCollections";
 import { CollectionsOverview } from "./CollectionsOverview";
 
 beforeEach(() => {

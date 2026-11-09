@@ -3,7 +3,7 @@
 import { useId, useState, type ChangeEvent } from "react";
 import { Button, LiveRegion } from "@galeria/ui";
 import type { Collection } from "../../lib/collection";
-import { exportCollections, parseImport } from "../../lib/transfer";
+import { exportCollections } from "../../lib/exportCollections";
 
 type Props = {
   collections: Collection[];
@@ -29,6 +29,7 @@ export function TransferPanel({ collections, onImport }: Props) {
     const file = event.target.files?.[0];
     event.target.value = "";
     if (!file) return;
+    const { parseImport } = await import("../../lib/transfer"); // Zod solo cuando se importa
     const parsed = parseImport(await file.text());
     if (!parsed.ok) return setMessage("Ese archivo no es una copia de colecciones de Galería.");
     await onImport(parsed.collections);

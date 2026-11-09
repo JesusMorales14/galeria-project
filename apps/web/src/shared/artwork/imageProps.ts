@@ -1,4 +1,4 @@
-import { buildImageSrcSet, buildImageUrl, type ArtworkImage } from "@galeria/api-client";
+import { buildImageSrcSet, buildImageUrl, type ArtworkImage } from "@galeria/api-client/images";
 import type { ArtworkImageProps } from "@galeria/ui";
 import { preconnect } from "react-dom";
 

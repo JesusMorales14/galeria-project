@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 /** Una colección guardada en el navegador del usuario. */
 export type Collection = {
   id: string;
@@ -19,13 +17,19 @@ export class CollectionError extends Error {
 type Clock = () => string;
 const isoNow: Clock = () => new Date().toISOString();
 
-export const collectionNameSchema = z.string().trim().min(1).max(MAX_NAME_LENGTH);
+/** Nombre limpio y válido, o null. Sin Zod: este módulo viaja al navegador. */
+export function normalizeCollectionName(name: unknown): string | null {
+  if (typeof name !== "string") return null;
+  const trimmed = name.trim();
+  return trimmed.length >= 1 && trimmed.length <= MAX_NAME_LENGTH ? trimmed : null;
+}
 
 function validName(name: string): string {
-  const parsed = collectionNameSchema.safeParse(name);
-  if (!parsed.success)
+  const valid = normalizeCollectionName(name);
+  if (!valid) {
     throw new CollectionError(`El nombre debe tener entre 1 y ${MAX_NAME_LENGTH} caracteres.`);
-  return parsed.data;
+  }
+  return valid;
 }
 
 const touch = (collection: Collection, changes: Partial<Collection>, now: Clock): Collection => ({
