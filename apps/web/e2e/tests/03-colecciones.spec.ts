@@ -1,11 +1,7 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { expectAccessible } from "../support/axe";
 
-async function saveToCollection(
-  page: import("@playwright/test").Page,
-  id: number,
-  collection: string,
-) {
+async function saveToCollection(page: Page, id: number, collection: string) {
   await page.goto(`/obra/${id}`);
   await page.getByRole("button", { name: /Guardar en colección|Guardada en/ }).click();
   const existing = page.getByRole("checkbox", { name: new RegExp(collection) });
