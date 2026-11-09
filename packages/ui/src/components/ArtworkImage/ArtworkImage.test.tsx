@@ -45,8 +45,10 @@ describe("ArtworkImage", () => {
 
   it("muestra el placeholder del museo como fondo mientras carga", () => {
     render(<ArtworkImage {...props} placeholder="data:image/gif;base64,AAAA" />);
-    expect(screen.getByRole("img").parentElement?.style.backgroundImage).toContain(
-      "data:image/gif",
-    );
+    const layer = screen
+      .getByRole("img")
+      .parentElement?.querySelector<HTMLElement>("[data-placeholder]");
+    expect(layer?.style.backgroundImage).toContain("data:image/gif");
+    expect(layer?.getAttribute("aria-hidden")).toBe("true");
   });
 });

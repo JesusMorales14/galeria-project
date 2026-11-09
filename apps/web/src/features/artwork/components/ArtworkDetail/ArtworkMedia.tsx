@@ -1,6 +1,6 @@
 import type { Artwork } from "@galeria/api-client";
 import { ArtworkImage } from "@galeria/ui";
-import { artworkAltText, toImageProps } from "@/shared/artwork";
+import { artworkAltText, preconnectToImages, toImageProps } from "@/shared/artwork";
 
 const DETAIL_SIZES = "(min-width: 1024px) 58vw, 100vw";
 
@@ -13,6 +13,7 @@ export function ArtworkMedia({ artwork }: { artwork: Artwork }) {
       </div>
     );
   }
+  preconnectToImages(artwork.image);
   const props = toImageProps(artwork.image, artworkAltText(artwork), DETAIL_SIZES);
   return <ArtworkImage {...props} priority className="max-h-[80vh]" />;
 }

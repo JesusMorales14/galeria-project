@@ -6,6 +6,8 @@ import { artworkResponse, searchResponse } from "../../../../../test/aicResponse
 import { ArtworkPageSection } from "./ArtworkPageSection";
 
 vi.mock("next/cache", () => ({ cacheLife: () => undefined, cacheTag: () => undefined }));
+// Las relacionadas son un Server Component asíncrono: se prueban aparte.
+vi.mock("../RelatedArtworks", () => ({ RelatedArtworks: () => null }));
 vi.mock("next/navigation", () => ({
   notFound: () => {
     throw new Error("NEXT_NOT_FOUND");

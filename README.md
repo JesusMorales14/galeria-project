@@ -29,6 +29,18 @@ pnpm dev        # http://localhost:3000
 
 Turborepo ejecuta cada tarea solo en los paquetes que cambiaron y guarda el resultado en caché.
 
+## Rendimiento
+
+Peso de imágenes por página tras la Fase 6 (Lighthouse móvil, mediana de 5 ejecuciones):
+
+| Página   | Antes   | Después         |
+| -------- | ------- | --------------- |
+| Portada  | 5949 KB | 1498 KB (−75 %) |
+| Búsqueda | 5949 KB | 764 KB (−87 %)  |
+| Obra     | 5949 KB | 172 KB (−97 %)  |
+
+CLS 0 en todas las páginas y 155 KB de JavaScript. Detalle, método y limitaciones en [`docs/performance.md`](docs/performance.md).
+
 ## Estructura
 
 ```text

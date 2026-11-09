@@ -2,6 +2,7 @@
 // Uso: node e2e/mock-aic/server.mjs  (puerto MOCK_AIC_PORT, 4010 por defecto)
 import { createServer } from "node:http";
 import { ARTWORKS, NOT_FOUND_ID } from "./dataset.mjs";
+import { renderImage } from "./images.mjs";
 import { search } from "./search.mjs";
 
 const PORT = Number(process.env.MOCK_AIC_PORT ?? 4010);
@@ -14,15 +15,13 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-function image(res, imageId, width) {
+async function image(res, imageId, width) {
   const artwork = ARTWORKS.find((item) => item.image_id === imageId);
   const ratio = artwork ? artwork.thumbnail.height / artwork.thumbnail.width : 0.75;
   const tone = imageId.split("-").at(-1) ?? "8a7a5c";
-  const height = Math.round(width * ratio);
-  res.writeHead(200, { "Content-Type": "image/svg+xml", "Cache-Control": "max-age=3600" });
-  res.end(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" height="100%" fill="#${tone}"/></svg>`,
-  );
+  const { type, body } = await renderImage(width, Math.round(width * ratio), tone);
+  res.writeHead(200, { "Content-Type": type, "Cache-Control": "public, max-age=86400" });
+  res.end(body);
 }
 
 function handleSearch(res, url) {

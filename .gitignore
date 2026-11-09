@@ -34,3 +34,6 @@ packages/api-client/test/fixtures/captured/
 
 # storybook
 storybook-static/
+
+# lighthouse ci
+.lighthouseci/

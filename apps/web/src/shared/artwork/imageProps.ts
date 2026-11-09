@@ -1,5 +1,6 @@
 import { buildImageSrcSet, buildImageUrl, type ArtworkImage } from "@galeria/api-client";
 import type { ArtworkImageProps } from "@galeria/ui";
+import { preconnect } from "react-dom";
 
 /** Ancho recomendado por el museo (lo tiene en caché). */
 export const DEFAULT_WIDTH = 843;
@@ -25,3 +26,11 @@ export function toImageProps(
 }
 
 export const artworkHref = (id: number) => `/obra/${id}`;
+
+/**
+ * Abre la conexión con el servidor IIIF lo antes posible (DNS + TLS),
+ * antes de que el navegador descubra la primera imagen. React deduplica la pista.
+ */
+export function preconnectToImages(image: Pick<ArtworkImage, "iiifBaseUrl">): void {
+  preconnect(new URL(image.iiifBaseUrl).origin);
+}
