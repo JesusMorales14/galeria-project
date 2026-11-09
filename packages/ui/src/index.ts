@@ -10,3 +10,4 @@ export { Slot } from "./components/Slot";
 export { TextLink, type TextLinkProps } from "./components/TextLink";
 export { LiveRegion, VisuallyHidden } from "./components/VisuallyHidden";
 export { cn } from "./lib/cn";
+export { ZoomViewer, type ZoomViewerProps } from "./components/ZoomViewer";

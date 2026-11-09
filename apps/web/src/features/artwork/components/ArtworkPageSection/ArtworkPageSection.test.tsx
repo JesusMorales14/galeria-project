@@ -35,7 +35,7 @@ describe("ArtworkPageSection (integración)", () => {
 
     expect(screen.getByRole("heading", { level: 1, name: "The Bedroom" })).toBeDefined();
     expect(
-      screen.getByRole("img", { name: "The Bedroom, de Vincent van Gogh, 1889" }),
+      screen.getByRole("application", { name: "The Bedroom, de Vincent van Gogh, 1889" }),
     ).toBeDefined();
     expect(screen.getByText("Oil on canvas")).toBeDefined();
     const jsonLd = document.querySelector('script[type="application/ld+json"]');
