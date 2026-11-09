@@ -1,0 +1,36 @@
+{
+  "data": {
+    "id": 27992,
+    "title": "A Sunday on La Grande Jatte — 1884",
+    "artist_title": "Georges Seurat",
+    "artist_display": "Georges Seurat\nFrench, 1859-1891",
+    "date_display": "1884–86",
+    "date_start": 1884,
+    "date_end": 1886,
+    "image_id": "2d484387-2509-5e8e-2c43-22f9981972eb",
+    "thumbnail": {
+      "lqip": "data:image/gif;base64,R0lGODlhBQAFAPQAAEZcaFVfY1JfZlBhaVRjZlVkalZlaFhlaVhnbFtqb1xqbmFsb2FtcWNvcmVvcmZxdGtzdWx2eHB4eXR6e3p9fXN/gXuDhICEhIGGh4OIiYSJio2QkZOWlpqbmp+fngAAACH5BAAAAAAALAAAAAAFAAUAAAUV4CRGFFIICDEYxVNEADA9gaAmz+yEADs=",
+      "width": 3000,
+      "height": 2013,
+      "alt_text": "Painting of a park on an island with people relaxing in the shade."
+    },
+    "is_public_domain": true,
+    "artwork_type_title": "Painting",
+    "medium_display": "Oil on canvas",
+    "dimensions": "207.5 × 308.1 cm (81 3/4 × 121 1/4 in.)",
+    "place_of_origin": "France",
+    "description": "<p>Georges Seurat painted <em>A Sunday on La Grande Jatte</em> using a technique called <strong>pointillism</strong> &amp; color theory.</p>\n<p>It took him two years.</p>",
+    "short_description": null,
+    "credit_line": "Helen Birch Bartlett Memorial Collection",
+    "department_title": "Painting and Sculpture of Europe",
+    "style_title": "Post-Impressionism"
+  },
+  "info": {
+    "license_text": "The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. All other data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
+    "version": "1.13"
+  },
+  "config": {
+    "iiif_url": "https://www.artic.edu/iiif/2",
+    "website_url": "http://www.artic.edu"
+  }
+}

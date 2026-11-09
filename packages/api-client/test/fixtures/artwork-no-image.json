@@ -1,0 +1,24 @@
+{
+  "data": {
+    "id": 100001,
+    "title": "Fragment of a Textile",
+    "artist_title": null,
+    "artist_display": "Peru",
+    "date_display": "1000–1476",
+    "date_start": 1000,
+    "date_end": 1476,
+    "image_id": null,
+    "thumbnail": null,
+    "is_public_domain": true,
+    "artwork_type_title": "Textile",
+    "medium_display": "Cotton",
+    "dimensions": "24 × 30 cm",
+    "place_of_origin": "Peru",
+    "description": null,
+    "short_description": null,
+    "credit_line": "Kate S. Buckingham Endowment",
+    "department_title": "Textiles",
+    "style_title": null
+  },
+  "config": { "iiif_url": "https://www.artic.edu/iiif/2", "website_url": "http://www.artic.edu" }
+}
