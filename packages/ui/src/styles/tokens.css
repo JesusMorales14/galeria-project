@@ -95,6 +95,15 @@
     text-wrap: balance;
   }
 
+  kbd {
+    font-family: inherit;
+    font-size: 0.9em;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-control);
+    padding: 0 0.35em;
+    background: var(--surface);
+  }
+
   p {
     text-wrap: pretty;
   }
