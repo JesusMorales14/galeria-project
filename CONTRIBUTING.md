@@ -19,7 +19,9 @@ pnpm build           # (apps/web necesita la API; ver abajo)
 pnpm --filter @galeria/web test:e2e   # Playwright + axe contra la API simulada
 ```
 
-Para compilar o probar sin red, arranca la API simulada:
+Primera vez con los e2e: `pnpm --filter @galeria/web e2e:install` (descarga Chromium).
+
+Para compilar o probar sin red, arranca la API simulada (en PowerShell: `$env:AIC_API_BASE_URL = "http://localhost:4010/api/v1"; pnpm build`):
 
 ```bash
 pnpm --filter @galeria/web mock:api          # http://localhost:4010/api/v1

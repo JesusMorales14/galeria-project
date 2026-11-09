@@ -15,7 +15,9 @@
     "analyze": "next analyze",
     "start:mock": "node scripts/start-with-mock.mjs",
     "perf:ci": "lhci autorun",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "postinstall": "next typegen",
+    "e2e:install": "playwright install chromium"
   },
   "dependencies": {
     "@fontsource-variable/instrument-sans": "^5.3.0",
