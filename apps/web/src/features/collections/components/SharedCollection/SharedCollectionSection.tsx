@@ -2,7 +2,7 @@ import { EmptyState } from "@galeria/ui";
 import { getArtworksByIds } from "@/shared/api";
 import { ArtworkGrid } from "@/shared/artwork";
 import { AppLink } from "@/shared/ui";
-import { parseSharedCollection } from "../../lib/shareLink";
+import { parseSharedCollection } from "../../lib/parseSharedCollection";
 import { SaveSharedCollection } from "./SaveSharedCollection";
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };

@@ -24,9 +24,14 @@ async function image(res, imageId, width) {
   res.end(body);
 }
 
+// MOCK_AIC_FAULT=contract simula que el museo cambia su respuesta (incidente 001).
+const FAULT = process.env.MOCK_AIC_FAULT;
+
 function handleSearch(res, url) {
   const body = JSON.parse(url.searchParams.get("params") ?? "{}");
   const result = search(ARTWORKS, body);
+  if (FAULT === "contract")
+    return json(res, 200, { data: result.data, config, paging: { count: result.total } });
   json(res, 200, {
     pagination: {
       total: result.total,

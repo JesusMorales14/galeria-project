@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { exportCollections, parseImport } from "./transfer";
+import { exportCollections } from "./exportCollections";
+import { parseImport } from "./transfer";
 
 const collection = {
   id: "c1",

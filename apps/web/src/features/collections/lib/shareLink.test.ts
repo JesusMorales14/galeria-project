@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildShareHref, parseSharedCollection } from "./shareLink";
+import { parseSharedCollection } from "./parseSharedCollection";
+import { buildShareHref } from "./shareLink";
 
 describe("buildShareHref", () => {
   it("codifica nombre y obras en la URL", () => {

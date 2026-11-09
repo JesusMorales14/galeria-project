@@ -2,7 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { Button, cn, TextInput } from "@galeria/ui";
-import { collectionNameSchema, MAX_NAME_LENGTH } from "../../lib/collection";
+import { MAX_NAME_LENGTH, normalizeCollectionName } from "../../lib/collection";
 
 type NewCollectionFormProps = {
   onCreate: (name: string) => Promise<unknown>;
@@ -25,12 +25,12 @@ export function NewCollectionForm({
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    const parsed = collectionNameSchema.safeParse(new FormData(form).get("nombre") ?? "");
-    if (!parsed.success) return setError(`Escribe un nombre de 1 a ${MAX_NAME_LENGTH} caracteres.`);
+    const name = normalizeCollectionName(new FormData(form).get("nombre"));
+    if (!name) return setError(`Escribe un nombre de 1 a ${MAX_NAME_LENGTH} caracteres.`);
     setError(null);
     setPending(true);
     try {
-      await onCreate(parsed.data);
+      await onCreate(name);
       form.reset();
     } catch {
       setError("No pudimos crear la colección. Inténtalo de nuevo.");

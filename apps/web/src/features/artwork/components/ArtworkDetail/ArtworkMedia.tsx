@@ -1,5 +1,5 @@
 import type { Artwork } from "@galeria/api-client";
-import { buildImageSrcSet, buildImageUrl } from "@galeria/api-client";
+import { buildImageSrcSet, buildImageUrl } from "@galeria/api-client/images";
 import { ZoomViewer } from "@galeria/ui";
 import { artworkAltText, DEFAULT_WIDTH, preconnectToImages } from "@/shared/artwork";
 
