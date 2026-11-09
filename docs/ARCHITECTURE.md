@@ -64,6 +64,28 @@ Los tests (`*.test.ts[x]`) están exentos de los límites de longitud.
 - Se prueba lo que el usuario ve y hace (Testing Library por rol y texto), no detalles internos.
 - TDD: primero el test que falla, luego el código mínimo que lo hace pasar.
 
+## Mapa de `apps/web/src`
+
+```text
+app/                      rutas: page, layout, error, not-found, route handlers (api/)
+features/
+  home/                   portada y obras destacadas
+  search/                 filtros en la URL, formulario, resultados, paginación
+  artwork/                ficha, visor, metadatos, JSON-LD, relacionadas
+  collections/            dominio, repositorio (IndexedDB), casos de uso, store, UI
+shared/
+  api/                    cliente del museo con caché ("use cache") y utilidades del BFF
+  artwork/                cuadrícula, miniatura, texto alternativo, props de imagen
+  config/                 identidad del sitio, obras destacadas, URL pública
+  layout/                 cabecera, pie, enlace para saltar al contenido
+  observability/          Web Vitals y reporte de errores (cliente); ./server para Sentry en servidor
+  ui/                     adaptadores de Next.js para el design system (AppLink, fuentes)
+```
+
+## Código que solo corre en el servidor
+
+`shared/api/client.ts` y `shared/api/artworks.ts` importan `server-only`: si un componente de cliente los importara, el build fallaría. Lo mismo `shared/observability/server.ts`.
+
 ## Decisiones
 
 Cada decisión técnica relevante se documenta en `docs/adr/` con la plantilla `0000-plantilla.md`.
