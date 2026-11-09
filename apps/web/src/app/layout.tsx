@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { siteConfig, siteUrl } from "@/shared/config";
 import { SiteFooter, SiteHeader, SkipLink } from "@/shared/layout";
 import { WebVitals } from "@/shared/observability";
@@ -28,7 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </div>
         <SiteFooter />
-        <WebVitals />
+        <Suspense>
+          <WebVitals />
+        </Suspense>
       </body>
     </html>
   );

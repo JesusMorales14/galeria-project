@@ -1,8 +1,8 @@
 import { LoaderCircle } from "lucide-react";
-import type { ButtonHTMLAttributes } from "react";
+import type { ComponentProps } from "react";
 import { buttonStyles, type ButtonSize, type ButtonVariant } from "./buttonStyles";
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+export type ButtonProps = ComponentProps<"button"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   /** Muestra un indicador, bloquea la acción y lo anuncia con aria-busy. */
