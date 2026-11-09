@@ -3,6 +3,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import prettier from "eslint-config-prettier";
+import globals from "globals";
 import { maintainabilityRules, testFileOverrides, typescriptRules } from "./rules.mjs";
 import { layerBoundaryRules } from "./boundaries.mjs";
 
@@ -22,6 +23,10 @@ export default defineConfig([
     },
   },
   ...layerBoundaryRules,
+  {
+    files: ["e2e/**/*.mjs", "*.config.{js,mjs}"],
+    languageOptions: { globals: globals.node },
+  },
   testFileOverrides,
   prettier,
   globalIgnores([".next/**", "out/**", "build/**", "coverage/**", "next-env.d.ts"]),

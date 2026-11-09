@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/shared/config";
 import { SiteFooter, SiteHeader, SkipLink } from "@/shared/layout";
-import { instrumentSans, newsreader } from "@/shared/ui";
+import { instrumentSans, newsreader } from "@/shared/ui/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
