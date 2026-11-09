@@ -22,8 +22,9 @@ function ratioOf(width: number | null, height: number | null): number {
 }
 
 /**
- * Imagen de una obra. Reserva su espacio con la proporción real (CLS = 0)
- * y deja que el navegador elija el ancho con srcset/sizes.
+ * Imagen de una obra. Reserva su espacio con la proporción real (CLS = 0),
+ * deja que el navegador elija el ancho con srcset/sizes y muestra el lqip del
+ * museo difuminado mientras llega la imagen real (sin JavaScript).
  */
 export function ArtworkImage({
   src,
@@ -36,16 +37,21 @@ export function ArtworkImage({
   placeholder,
   className,
 }: ArtworkImageProps) {
-  const style = {
-    "--ratio": String(ratioOf(width, height)),
-    ...(placeholder ? { backgroundImage: `url("${placeholder}")` } : {}),
-  } as CSSProperties;
+  const style = { "--ratio": String(ratioOf(width, height)) } as CSSProperties;
 
   return (
     <div
-      className={cn("aspect-(--ratio) w-full bg-placeholder bg-cover bg-center", className)}
+      className={cn("relative aspect-(--ratio) w-full overflow-hidden bg-placeholder", className)}
       style={style}
     >
+      {placeholder && (
+        <div
+          aria-hidden="true"
+          data-placeholder=""
+          className="absolute inset-0 scale-110 bg-cover bg-center blur-xl"
+          style={{ backgroundImage: `url("${placeholder}")` }}
+        />
+      )}
       {/* <img> nativo: ui no depende de Next.js y IIIF ya entrega el ancho exacto. */}
       <img
         src={src}
@@ -57,7 +63,7 @@ export function ArtworkImage({
         loading={priority ? "eager" : "lazy"}
         fetchPriority={priority ? "high" : "auto"}
         decoding="async"
-        className="block h-full w-full object-contain"
+        className="relative block h-full w-full object-contain"
       />
     </div>
   );

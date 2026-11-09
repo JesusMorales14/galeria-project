@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig, siteUrl } from "@/shared/config";
 import { SiteFooter, SiteHeader, SkipLink } from "@/shared/layout";
+import { WebVitals } from "@/shared/observability";
 import { instrumentSans, newsreader } from "@/shared/ui/fonts";
 import "./globals.css";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </div>
         <SiteFooter />
+        <WebVitals />
       </body>
     </html>
   );

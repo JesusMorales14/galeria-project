@@ -1,5 +1,6 @@
 import type { ArtworkSummary } from "@galeria/api-client";
 import { cn } from "@galeria/ui";
+import { preconnectToImages } from "./imageProps";
 import { ArtworkTile } from "./ArtworkTile";
 
 type ArtworkGridProps = {
@@ -16,6 +17,9 @@ export function ArtworkGrid({
   headingLevel,
   className,
 }: ArtworkGridProps) {
+  const firstImage = artworks.find((artwork) => artwork.image)?.image;
+  if (firstImage) preconnectToImages(firstImage);
+
   return (
     <ul
       className={cn(
