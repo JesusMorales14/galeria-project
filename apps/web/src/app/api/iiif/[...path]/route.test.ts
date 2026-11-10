@@ -37,6 +37,28 @@ describe("GET /api/iiif", () => {
     expect((await call(["abc", "full", "9999,", "0", "default.jpg"])).status).toBe(400);
   });
 
+  it("no acepta una página de desafío como imagen y reintenta una vez", async () => {
+    let calls = 0;
+    server.use(
+      http.get(IMAGE, () => {
+        calls += 1;
+        return calls === 1
+          ? new HttpResponse("<html>Attention Required</html>", {
+              headers: { "Content-Type": "text/html" },
+            })
+          : new HttpResponse(new Uint8Array([0xff, 0xd8]), {
+              headers: { "Content-Type": "image/jpeg" },
+            });
+      }),
+    );
+
+    const response = await call(["abc-123", "full", "843,", "0", "default.jpg"]);
+
+    expect(calls).toBe(2);
+    expect(response.status).toBe(200);
+    expect(response.headers.get("Content-Type")).toBe("image/jpeg");
+  });
+
   it("propaga el 404 y convierte el resto de fallos en 502 sin cachearlos", async () => {
     server.use(http.get(IMAGE, () => new HttpResponse(null, { status: 404 })));
     expect((await call(["abc-123", "full", "843,", "0", "default.jpg"])).status).toBe(404);
