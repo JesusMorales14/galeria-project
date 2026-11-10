@@ -1,3 +1,7 @@
 # Finales de línea LF en el repo, aunque se trabaje en Windows.
 * text=auto eol=lf
 *.ico binary
+
+# Skills de terceros (superpowers, impeccable): no cuentan en las estadísticas de lenguajes de GitHub.
+.agents/** linguist-vendored
+skills-lock.json linguist-vendored
