@@ -15,7 +15,7 @@ export function SaveSharedCollection({ collection }: { collection: SharedCollect
   if (savedId) {
     return (
       <Link href={`/colecciones/${savedId}`} className={buttonStyles("secondary")}>
-        Guardada · ver en mis colecciones
+        Guardada. Ver en mis colecciones
       </Link>
     );
   }

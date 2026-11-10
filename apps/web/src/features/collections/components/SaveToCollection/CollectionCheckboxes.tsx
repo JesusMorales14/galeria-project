@@ -16,7 +16,10 @@ export function CollectionCheckboxes({ collections, artworkId, onToggle }: Props
       {collections.map((collection) => {
         const checked = collection.artworkIds.includes(artworkId);
         return (
-          <label key={collection.id} className="flex items-center gap-3 py-1 text-[0.9375rem]">
+          <label
+            key={collection.id}
+            className="flex min-h-11 cursor-pointer items-center gap-3 text-[0.9375rem]"
+          >
             <input
               type="checkbox"
               checked={checked}

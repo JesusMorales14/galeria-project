@@ -41,7 +41,7 @@ export async function SharedCollectionSection({ searchParams }: Props) {
       <header className="flex flex-col items-start gap-4">
         <h2 className="font-display text-display">{collection.name}</h2>
         <p className="text-ink-muted tabular-nums">
-          Colección compartida · {artworks.length === 1 ? "1 obra" : `${artworks.length} obras`}
+          Colección compartida con {artworks.length === 1 ? "1 obra" : `${artworks.length} obras`}
           {missing > 0 && ` (${missing} ya no están en la colección pública del museo)`}
         </p>
         <SaveSharedCollection collection={collection} />

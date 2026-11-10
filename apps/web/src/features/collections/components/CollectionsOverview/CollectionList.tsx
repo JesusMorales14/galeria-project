@@ -19,7 +19,7 @@ export function CollectionList({ collections }: { collections: Collection[] }) {
             {collection.name}
           </Link>
           <p className="text-label text-ink-muted tabular-nums">
-            {count(collection.artworkIds.length)} · actualizada el{" "}
+            {count(collection.artworkIds.length)}, actualizada el{" "}
             {dateFormat.format(new Date(collection.updatedAt))}
           </p>
         </li>

@@ -37,6 +37,11 @@ describe("Button", () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it("el tamaño pequeño crece a 44 px con puntero táctil", () => {
+    render(<Button size="sm">Mover</Button>);
+    expect(screen.getByRole("button").className).toContain("pointer-coarse:h-11");
+  });
+
   it("no tiene problemas de accesibilidad", async () => {
     const { container } = render(<Button variant="secondary">Cancelar</Button>);
     await expectNoA11yViolations(container);
