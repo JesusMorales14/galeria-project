@@ -13,6 +13,13 @@ test.describe("@humo", () => {
 
     await page.goto("/buscar?q=monet");
     await expect(page.getByRole("status")).toHaveText(/obras? encontradas?/);
+    // Las imágenes se sirven desde nuestro dominio (/api/iiif) y cargan de verdad.
+    const image = page.getByRole("article").first().locator("img");
+    await expect(image).toHaveAttribute("src", /^\/api\/iiif\//);
+    await expect
+      .poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth))
+      .toBeGreaterThan(0);
+
     const first = page.getByRole("article").first().getByRole("link");
     await expect(first).toBeVisible();
     await first.click();

@@ -1,7 +1,7 @@
 import type { Artwork } from "@galeria/api-client";
 import { buildImageSrcSet, buildImageUrl } from "@galeria/api-client/images";
 import { ZoomViewer } from "@galeria/ui";
-import { artworkAltText, DEFAULT_WIDTH, preconnectToImages } from "@/shared/artwork";
+import { artworkAltText, DEFAULT_WIDTH, viaProxy } from "@/shared/artwork";
 
 /**
  * Imagen principal con visor de zoom. Es el LCP de la página: se pide con prioridad.
@@ -16,11 +16,11 @@ export function ArtworkMedia({ artwork }: { artwork: Artwork }) {
       </div>
     );
   }
-  preconnectToImages(artwork.image);
+  const image = viaProxy(artwork.image);
   return (
     <ZoomViewer
-      src={buildImageUrl(artwork.image, DEFAULT_WIDTH)}
-      srcSet={buildImageSrcSet(artwork.image, [DEFAULT_WIDTH, 1686])}
+      src={buildImageUrl(image, DEFAULT_WIDTH)}
+      srcSet={buildImageSrcSet(image, [DEFAULT_WIDTH, 1686])}
       width={artwork.image.width}
       height={artwork.image.height}
       alt={artworkAltText(artwork)}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { buildImageUrl, type Artwork } from "@galeria/api-client";
+import type { Artwork } from "@galeria/api-client";
+import { absoluteImageUrl } from "@/shared/artwork";
 import { artworkCaption, artworkName, truncate } from "./label";
 
 const OG_WIDTH = 843;
@@ -10,7 +11,7 @@ function ogImage(artwork: Artwork) {
   const height =
     image.width && image.height ? Math.round((OG_WIDTH * image.height) / image.width) : undefined;
   return [
-    { url: buildImageUrl(image, OG_WIDTH), width: OG_WIDTH, height, alt: artworkName(artwork) },
+    { url: absoluteImageUrl(image, OG_WIDTH), width: OG_WIDTH, height, alt: artworkName(artwork) },
   ];
 }
 
