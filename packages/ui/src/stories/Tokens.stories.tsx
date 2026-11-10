@@ -25,7 +25,7 @@ function Tokens() {
           atenuado.
         </p>
         <p className="text-label text-ink-muted tabular-nums">
-          Georges Seurat · 1884–86 · 207,5 × 308,1 cm
+          Georges Seurat, 1884–86. 207,5 × 308,1 cm
         </p>
       </section>
     </div>

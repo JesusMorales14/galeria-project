@@ -34,7 +34,7 @@ describe("CollectionsOverview", () => {
 
     const link = await screen.findByRole("link", { name: "Retratos" });
     expect(link.getAttribute("href")).toMatch(/^\/colecciones\//);
-    expect(screen.getByText(/0 obras · actualizada el/)).toBeDefined();
+    expect(screen.getByText(/0 obras, actualizada el/)).toBeDefined();
   });
 
   it("importa una copia de seguridad y rechaza archivos ajenos", async () => {

@@ -5,8 +5,8 @@ export type ButtonSize = "sm" | "md";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-control font-sans font-medium " +
-  "transition-colors duration-200 ease-out-expo select-none " +
-  "disabled:cursor-not-allowed disabled:opacity-55";
+  "cursor-pointer transition-[color,background-color,border-color,opacity] duration-200 ease-out-expo " +
+  "select-none active:opacity-80 disabled:cursor-not-allowed disabled:opacity-55";
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-ink text-wall hover:bg-accent hover:text-accent-ink",
@@ -15,7 +15,8 @@ const variants: Record<ButtonVariant, string> = {
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-sm",
+  // En pantallas táctiles, también el tamaño pequeño llega a 44 px (ui-ux-pro-max: áreas táctiles).
+  sm: "h-9 min-w-9 px-3 text-sm pointer-coarse:h-11 pointer-coarse:min-w-11",
   md: "h-11 px-5 text-[0.9375rem]",
 };
 

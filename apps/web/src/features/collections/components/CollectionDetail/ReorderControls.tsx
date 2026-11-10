@@ -15,7 +15,7 @@ type Props = {
 /** Alternativa accesible al arrastre: mover con botones (teclado y lector de pantalla). */
 export function ReorderControls({ title, index, total, artworkId, onMove, onRemove }: Props) {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-2">
       <Button
         variant="ghost"
         size="sm"

@@ -16,7 +16,7 @@ export function ZoomToolbar({ scale, onCommand, controls }: ZoomToolbarProps) {
       role="toolbar"
       aria-label="Controles de zoom"
       aria-controls={controls}
-      className="flex gap-1"
+      className="flex gap-2"
     >
       <Button
         variant="ghost"

@@ -95,6 +95,14 @@
     text-wrap: balance;
   }
 
+  /* Tailwind v4 quita el cursor de mano a los botones: lo devolvemos en todo lo clicable. */
+  button:not(:disabled),
+  summary,
+  label[for],
+  select:not(:disabled) {
+    cursor: pointer;
+  }
+
   kbd {
     font-family: inherit;
     font-size: 0.9em;

@@ -5,7 +5,7 @@ import { visiblePages } from "./pages";
 
 type PaginationProps = { filters: SearchFilters; totalPages: number };
 
-const itemStyles = "inline-flex h-10 min-w-10 items-center justify-center px-3 text-[0.9375rem]";
+const itemStyles = "inline-flex h-11 min-w-11 items-center justify-center px-3 text-[0.9375rem]";
 
 export function Pagination({ filters, totalPages }: PaginationProps) {
   if (totalPages <= 1) return null;

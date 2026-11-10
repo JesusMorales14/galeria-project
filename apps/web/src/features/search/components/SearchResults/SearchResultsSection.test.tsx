@@ -37,7 +37,7 @@ describe("SearchResultsSection (integración)", () => {
 
     expect(lastBody.q).toBe("monet");
     expect(screen.getAllByRole("article")).toHaveLength(2);
-    expect(screen.getByRole("status").textContent).toBe("30 obras encontradas · página 1 de 2");
+    expect(screen.getByRole("status").textContent).toBe("30 obras encontradas. Página 1 de 2");
     expect(screen.getByRole("link", { name: "Obra 1" }).getAttribute("href")).toBe("/obra/1");
   });
 

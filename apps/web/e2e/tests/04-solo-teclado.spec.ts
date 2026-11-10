@@ -11,7 +11,11 @@ test.describe("Navegación solo con teclado", () => {
     await page.keyboard.press("Enter");
     await expect(page.locator("#contenido")).toBeFocused();
 
-    // Primer control del contenido: el botón de buscar en la colección.
+    // Primer control del contenido: la obra que cuelga en la portada; después, buscar.
+    await page.keyboard.press("Tab");
+    await expect(
+      page.getByRole("link", { name: "A Sunday on La Grande Jatte — 1884" }).first(),
+    ).toBeFocused();
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "Buscar en la colección" })).toBeFocused();
     await page.keyboard.press("Enter");

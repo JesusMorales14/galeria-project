@@ -111,6 +111,8 @@ components:
 
 Cuadrícula de 1 columna en móvil, 2 en tablet y 3–4 en escritorio, con separación generosa (`gap-x-8 gap-y-12`). Las imágenes conservan su proporción real: la cuadrícula se alinea arriba, como obras colgadas a la misma altura. Márgenes laterales de 16px en móvil y 24–48px en escritorio.
 
+**La portada abre con una obra, no con un titular.** El héroe es una cuadrícula asimétrica 7/5: la primera obra destacada, grande y con su cartela, a la izquierda; el nombre del sitio y las dos acciones, alineados abajo, a la derecha. En móvil la obra va primero y el texto debajo.
+
 ## Elevation & Depth
 
 Plano. No hay sombras ni tarjetas: la profundidad viene del tamaño y del espacio. El visor de zoom es la única superficie elevada (`surface` con borde `line`).
@@ -123,7 +125,11 @@ Esquinas de 2px en controles. Imágenes sin redondear: una obra no tiene esquina
 
 ### Buttons
 
-Primario en tinta sobre yeso; al pasar el ratón cambia a burdeos. Secundario con borde de 1px. Fantasma para acciones terciarias (restablecer zoom). Estado de carga con indicador y `aria-busy`.
+Primario en tinta sobre yeso; al pasar el ratón cambia a burdeos. Secundario con borde de 1px. Fantasma para acciones terciarias (restablecer zoom). Estado de carga con indicador y `aria-busy`. Todo control clicable muestra el cursor de mano y un estado pulsado (`active:opacity-80`); deshabilitado baja al 55 % con cursor de prohibido.
+
+### Áreas táctiles
+
+Mínimo **44×44px** en cualquier objetivo táctil: enlaces de navegación y paginación (`min-h-11`), casillas de colección (fila de 44px) y botones pequeños, que crecen a 44px solo en pantallas táctiles (`pointer-coarse:`). Entre controles adyacentes, al menos 8px (`gap-2`).
 
 ### Cards / Containers
 
@@ -142,11 +148,12 @@ Cabecera sobria: nombre del sitio en `display` reducido y enlaces de texto. El e
 ### Do:
 
 - Dejar más espacio a la imagen que a la interfaz.
-- Usar la cartela (título en cursiva, artista, fecha) como único patrón de metadatos.
+- Usar la cartela (título en cursiva, artista, fecha) como único patrón de metadatos, con puntuación de frase (comas y puntos), nunca separadores de punto medio.
 - Diseñar los estados de carga, vacío y error de cada vista.
 
 ### Don't:
 
 - Tarjetas con sombra, gradientes o etiquetas sobre los títulos.
+- Metadatos encadenados con punto medio (·) ni portadas que empiecen con un titular genérico.
 - Colores de marca del museo: Galería no se hace pasar por el Art Institute.
 - Animaciones que compitan con la obra. El único momento animado es la aparición nítida de la imagen sobre su placeholder.
