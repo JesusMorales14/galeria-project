@@ -41,3 +41,7 @@ storybook-static/
 # playwright
 playwright-report/
 test-results/
+
+# Caché de Python (scripts de skills)
+__pycache__/
+*.pyc
