@@ -1,6 +1,7 @@
 import { buildImageSrcSet, buildImageUrl, type ArtworkImage } from "@galeria/api-client/images";
 import type { ArtworkImageProps } from "@galeria/ui";
-import { preconnect } from "react-dom";
+import { siteUrl } from "@/shared/config";
+import { viaProxy } from "./imageProxy";
 
 /** Ancho recomendado por el museo (lo tiene en caché). */
 export const DEFAULT_WIDTH = 843;
@@ -14,9 +15,10 @@ export function toImageProps(
   alt: string,
   sizes: string = GRID_SIZES,
 ): ArtworkImageProps {
+  const proxied = viaProxy(image);
   return {
-    src: buildImageUrl(image, DEFAULT_WIDTH),
-    srcSet: buildImageSrcSet(image, [200, 400, DEFAULT_WIDTH]),
+    src: buildImageUrl(proxied, DEFAULT_WIDTH),
+    srcSet: buildImageSrcSet(proxied, [200, 400, DEFAULT_WIDTH]),
     sizes,
     width: image.width,
     height: image.height,
@@ -25,12 +27,9 @@ export function toImageProps(
   };
 }
 
-export const artworkHref = (id: number) => `/obra/${id}`;
-
-/**
- * Abre la conexión con el servidor IIIF lo antes posible (DNS + TLS),
- * antes de que el navegador descubra la primera imagen. React deduplica la pista.
- */
-export function preconnectToImages(image: Pick<ArtworkImage, "iiifBaseUrl">): void {
-  preconnect(new URL(image.iiifBaseUrl).origin);
+/** URL absoluta de la imagen (vía nuestro proxy) para Open Graph y JSON-LD. */
+export function absoluteImageUrl(image: ArtworkImage, width: number = DEFAULT_WIDTH): string {
+  return new URL(buildImageUrl(viaProxy(image), width), siteUrl()).href;
 }
+
+export const artworkHref = (id: number) => `/obra/${id}`;

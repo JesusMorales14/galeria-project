@@ -1,4 +1,5 @@
-import { buildImageUrl, type Artwork } from "@galeria/api-client";
+import type { Artwork } from "@galeria/api-client";
+import { absoluteImageUrl } from "@/shared/artwork";
 
 /** Datos estructurados (schema.org/VisualArtwork) para que los buscadores entiendan la obra. */
 export function artworkJsonLd(artwork: Artwork, url: string) {
@@ -11,7 +12,7 @@ export function artworkJsonLd(artwork: Artwork, url: string) {
     ...(artwork.dateStart !== null ? { dateCreated: String(artwork.dateStart) } : {}),
     ...(artwork.medium ? { artMedium: artwork.medium } : {}),
     ...(artwork.artworkType ? { artform: artwork.artworkType } : {}),
-    ...(artwork.image ? { image: buildImageUrl(artwork.image, 843) } : {}),
+    ...(artwork.image ? { image: absoluteImageUrl(artwork.image) } : {}),
     ...(artwork.description ? { description: artwork.description } : {}),
     ...(artwork.isPublicDomain
       ? { license: "https://creativecommons.org/publicdomain/zero/1.0/" }

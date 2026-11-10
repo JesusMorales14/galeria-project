@@ -50,7 +50,7 @@ describe("artworkMetadata", () => {
       type: "article",
       images: [
         {
-          url: "https://www.artic.edu/iiif/2/img/full/843,/0/default.jpg",
+          url: "http://localhost:3000/api/iiif/img/full/843,/0/default.jpg",
           width: 843,
           height: 562,
         },

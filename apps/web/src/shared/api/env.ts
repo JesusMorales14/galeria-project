@@ -3,6 +3,8 @@ import { DEFAULT_BASE_URL } from "@galeria/api-client";
 
 const envSchema = z.object({
   AIC_API_BASE_URL: z.url().default(DEFAULT_BASE_URL),
+  /** Servidor de imágenes al que el proxy /api/iiif pide las obras. */
+  AIC_IIIF_BASE_URL: z.url().default("https://www.artic.edu/iiif/2"),
   AIC_USER_AGENT: z
     .string()
     .min(1)
