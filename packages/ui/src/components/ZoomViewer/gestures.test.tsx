@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ZoomViewer } from "./ZoomViewer";
 
@@ -40,10 +40,11 @@ describe("ZoomViewer: rueda y gestos", () => {
     expect(screen.getByRole("status").textContent).toBe("Zoom 100 %");
   });
 
-  it("Ctrl + rueda acerca hacia el cursor", () => {
+  it("Ctrl + rueda acerca hacia el cursor (el nivel se anuncia al dejar de girar)", async () => {
     render(<ZoomViewer {...props} />);
     fireEvent.wheel(viewer(), { deltaY: -100, ctrlKey: true, clientX: 500, clientY: 400 });
-    expect(screen.getByRole("status").textContent).not.toBe("Zoom 100 %");
+    expect(transform()).not.toContain("scale(1)");
+    await waitFor(() => expect(screen.getByRole("status").textContent).not.toBe("Zoom 100 %"));
   });
 
   it("con zoom, arrastrar con el ratón mueve la imagen", async () => {
@@ -65,7 +66,7 @@ describe("ZoomViewer: rueda y gestos", () => {
     expect(transform()).toMatch(/scale\(1\)/);
   });
 
-  it("pellizcar con dos dedos acerca", () => {
+  it("pellizcar con dos dedos acerca; el nivel se confirma al levantar los dedos", () => {
     render(<ZoomViewer {...props} />);
     const element = viewer();
     send(element, pointer("pointerdown", { id: 1, x: 400, y: 400, touch: true }));
@@ -73,7 +74,10 @@ describe("ZoomViewer: rueda y gestos", () => {
     send(element, pointer("pointermove", { id: 1, x: 300, y: 400, touch: true }));
     send(element, pointer("pointermove", { id: 2, x: 700, y: 400, touch: true }));
     send(element, pointer("pointercancel", { id: 1, x: 300, y: 400, touch: true }));
+    expect(transform()).toContain("scale(1.333"); // la imagen ya sigue a los dedos
+    expect(screen.getByRole("status").textContent).toBe("Zoom 100 %"); // aún hay un dedo
 
-    expect(screen.getByRole("status").textContent).not.toBe("Zoom 100 %");
+    send(element, pointer("pointerup", { id: 2, x: 700, y: 400, touch: true }));
+    expect(screen.getByRole("status").textContent).toBe("Zoom 133 %");
   });
 });

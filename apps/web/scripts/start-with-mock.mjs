@@ -8,6 +8,10 @@ const env = {
   AIC_API_BASE_URL: `http://localhost:${MOCK_PORT}/api/v1`,
   AIC_IIIF_BASE_URL: `http://localhost:${MOCK_PORT}/iiif/2`,
   MOCK_AIC_PORT: MOCK_PORT,
+  // `next start` corre en modo producción, donde AUTH_SECRET es obligatorio. Secreto solo de pruebas.
+  AUTH_SECRET: process.env.AUTH_SECRET ?? "secreto-de-pruebas-e2e-no-usar-en-produccion",
+  // Sin base de datos en e2e y Lighthouse: cuentas en memoria, pedido de forma explícita.
+  AUTH_STORAGE: process.env.DATABASE_URL ? undefined : "memory",
 };
 
 // En Windows, pnpm es un script (pnpm.cmd): hay que lanzarlo a través de la shell.

@@ -73,8 +73,11 @@ features/
   search/                 filtros en la URL, formulario, resultados, paginación
   artwork/                ficha, visor, metadatos, JSON-LD, relacionadas
   collections/            dominio, repositorio (IndexedDB), casos de uso, store, UI
+  auth/                   cuentas: servicio, repositorios, Server Actions, DAL, formularios
 shared/
   api/                    cliente del museo con caché ("use cache") y utilidades del BFF
+  auth/                   tokens JWT, cookies, decideAccess y redirecciones seguras (sin dominio)
+  security/               cabeceras de seguridad y CSP (las usa next.config.ts)
   artwork/                cuadrícula, miniatura, texto alternativo, props de imagen
   config/                 identidad del sitio, obras destacadas, URL pública
   layout/                 cabecera, pie, enlace para saltar al contenido
@@ -82,9 +85,47 @@ shared/
   ui/                     adaptadores de Next.js para el design system (AppLink, fuentes)
 ```
 
+## Patrones de diseño aplicados
+
+| Patrón                               | Dónde                                                                          | Para qué                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| Repositorio                          | `CollectionsRepository`, `UserRepository`, `RefreshTokenStore`, `AttemptStore` | La persistencia se cambia sin tocar casos de uso ni UI (memoria ↔ Postgres) |
+| Adaptador de base de datos           | `SqlClient` (`pg` en producción, PGlite en tests)                              | Los repositorios Postgres se prueban contra Postgres real sin Docker        |
+| Tests de contrato                    | `storageContract.test.ts`                                                      | Las mismas pruebas para cada implementación de almacenamiento               |
+| Servicio + inyección de dependencias | `createCollectionsService`, `createAuthService`                                | Casos de uso puros, probados con dobles rápidos (reloj, ids, hash)          |
+| Raíz de composición                  | `features/auth/server/container.ts`                                            | Único sitio que elige implementaciones concretas                            |
+| Capa de acceso a datos (DAL)         | `features/auth/server/session.ts`                                              | Toda lectura protegida verifica la sesión en el servidor                    |
+| Adaptador                            | `useCollections` (`useSyncExternalStore`), `AppLink`                           | Conecta el dominio con React o con el router                                |
+| Slot / inversión de dependencias     | `SiteHeader account={…}`                                                       | `shared/` muestra la sesión sin conocer la feature `auth`                   |
+| Función pura de decisión             | `decideAccess`, `zoomState`, `spotlight`                                       | La lógica se prueba sin navegador ni Next.js                                |
+
+## Presupuesto de renders
+
+Regla: **cero renders innecesarios**. React solo renderiza cuando cambia algo que la persona debe ver, y nunca por eventos continuos (puntero, rueda, scroll).
+
+| Caso                                          | Renders                           | Cómo                                                                                                                           |
+| --------------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Páginas, cuadrículas, fichas                  | 0 en el cliente                   | Server Components: llegan como HTML                                                                                            |
+| Foco que sigue al puntero                     | 0 por movimiento                  | `useSpotlight` escribe variables CSS en `requestAnimationFrame`                                                                |
+| Arrastre, pellizco y Ctrl + rueda en el visor | 0 durante el gesto, 1 al terminar | `useLiveZoom`: vista previa en el `style` de la imagen; confirmación al soltar (o 150 ms después de la última vuelta de rueda) |
+| Botones y teclado del visor                   | 1 por acción                      | Cambia el nivel anunciado y el estado de los botones                                                                           |
+| Animaciones (sala, salón, entrada, marcador)  | 0                                 | CSS, `animation-timeline` y Web Animations API                                                                                 |
+| Colecciones                                   | Solo si cambia la instantánea     | `useSyncExternalStore`                                                                                                         |
+| Hijos que no cambian                          | 0                                 | React Compiler (`reactCompiler: true`): memoización automática, sin `useMemo`/`useCallback` a mano                             |
+
+Los tests lo comprueban con el `<Profiler>` de React (`ZoomViewer/renders.test.tsx`, `useSpotlight.test.tsx`): si un cambio vuelve a renderizar durante un gesto, el CI falla.
+
+## `proxy.ts`
+
+Se ejecuta antes de renderizar `/cuenta`, `/entrar` y `/registro`. Solo comprueba la firma del token de acceso (sin estado) y delega la decisión en `decideAccess` (`shared/auth`). No sustituye a la verificación en el servidor: es un filtro optimista ([ADR 0009](adr/0009-autenticacion-con-tokens.md)).
+
+## Base de datos
+
+`apps/web/db/migrations/*.sql` son la única fuente del esquema; `db/migrate.mjs` las aplica en orden (una transacción por archivo, _advisory lock_, tabla `schema_migrations`). Lo usan el despliegue (`pnpm --filter @galeria/web db:migrate`) y los tests. Detalle en [ADR 0011](adr/0011-persistencia-y-despliegue-en-railway.md).
+
 ## Código que solo corre en el servidor
 
-`shared/api/client.ts` y `shared/api/artworks.ts` importan `server-only`: si un componente de cliente los importara, el build fallaría. Lo mismo `shared/observability/server.ts`.
+`shared/api/client.ts` y `shared/api/artworks.ts` importan `server-only`: si un componente de cliente los importara, el build fallaría. Lo mismo `shared/observability/server.ts` y `features/auth/server/*` (contenedor, sesión, refresco).
 
 ## Decisiones
 

@@ -1,0 +1,109 @@
+/*
+ * La sala oscura de la portada. Un único momento orquestado: al cargar, el foco se abre
+ * sobre la obra y el rótulo sube letra a letra. Después, el foco sigue al puntero
+ * (variables --spot-x/--spot-y escritas por useSpotlight).
+ */
+
+.sala {
+  --spot-x: 34%;
+  --spot-y: 42%;
+  --spot-glow: color-mix(in oklab, var(--light) 26%, transparent);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--night);
+  color: var(--night-ink);
+}
+
+/* El cono de luz: un degradado radial que se abre al encender la sala. */
+.sala-luz {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 34rem 30rem at var(--spot-x) var(--spot-y),
+      var(--spot-glow),
+      transparent 70%
+    ),
+    radial-gradient(ellipse 120% 60% at 50% 120%, rgb(0 0 0 / 0.45), transparent 70%);
+  animation: lights-on 1.8s var(--ease-out-expo) 0.15s both;
+}
+
+/* La obra pasa de la penumbra a la luz a la vez que el foco. */
+.sala-obra {
+  animation: artwork-lit 1.6s var(--ease-out-expo) 0.25s both;
+}
+
+/*
+ * Rótulo de fachada: dos capas idénticas; la de arriba (luz) solo se ve donde cae el foco.
+ * En móvil cruza la sala de lado a lado; en escritorio cuelga en vertical, como los
+ * estandartes entre los leones del museo.
+ */
+.sala-rotulo {
+  position: relative;
+  margin-bottom: -0.14em; /* el rótulo sigue más allá del suelo de la sala */
+  font-family: var(--font-display);
+  font-size: var(--text-banner);
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: var(--night-ink-muted);
+  user-select: none;
+}
+
+.sala-rotulo-luz {
+  position: absolute;
+  inset: 0;
+  color: var(--light);
+  /* --lx/--ly: posición del foco dentro del rótulo (useSpotlight). */
+  mask-image: radial-gradient(
+    circle 15rem at var(--lx, 30%) var(--ly, 50%),
+    #000 15%,
+    transparent 75%
+  );
+}
+
+@media (min-width: 64rem) {
+  .sala-rotulo {
+    margin: 0;
+    font-size: clamp(9rem, 4rem + 8vw, 13.5rem);
+    line-height: 0.78;
+    writing-mode: sideways-lr; /* se lee de abajo arriba, como el lomo de un libro */
+  }
+}
+
+.sala-letra {
+  display: inline-block;
+  animation: letter-rise 1s var(--ease-out-expo) both;
+  animation-delay: calc(0.35s + var(--i) * 55ms);
+}
+
+@keyframes lights-on {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+}
+
+@keyframes artwork-lit {
+  from {
+    filter: brightness(0.3) saturate(0.6);
+  }
+}
+
+@keyframes letter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(45%);
+  }
+}
+
+@media (forced-colors: active) {
+  .sala-rotulo-luz,
+  .sala-luz {
+    display: none;
+  }
+}

@@ -1,26 +1,24 @@
 import Link from "next/link";
 import { buttonStyles } from "@galeria/ui";
-import { AppLink } from "@/shared/ui";
 
-type HomeIntroProps = {
-  title: string;
-  description: string;
-};
+type HomeIntroProps = { description: string };
 
-/** Presentación de la portada. Recibe sus textos por props: no sabe de dónde vienen. */
-export function HomeIntro({ title, description }: HomeIntroProps) {
+/** Presentación de la portada, dentro de la sala oscura. Recibe sus textos por props. */
+export function HomeIntro({ description }: HomeIntroProps) {
   return (
-    <section aria-labelledby="home-intro-title" className="flex flex-col items-start gap-6">
-      <h1 id="home-intro-title" className="font-display text-display text-ink">
-        {title}
-      </h1>
-      <p className="max-w-[60ch] text-lg leading-8 text-ink-muted">{description}</p>
+    <div className="flex flex-col items-start gap-7 lg:pb-2">
+      <p className="max-w-[34ch] text-xl leading-8 text-night-ink">{description}</p>
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <Link href="/buscar" className={buttonStyles("primary")}>
+        <Link href="/buscar" className={buttonStyles("inverse")}>
           Buscar en la colección
         </Link>
-        <AppLink href="/colecciones">Ver mis colecciones</AppLink>
+        <Link
+          href="/colecciones"
+          className="inline-flex min-h-11 items-center font-sans text-lg font-medium text-night-ink underline decoration-night-ink-muted underline-offset-[0.3em] transition-colors hover:text-light hover:decoration-light"
+        >
+          Ver mis colecciones
+        </Link>
       </div>
-    </section>
+    </div>
   );
 }

@@ -17,6 +17,11 @@ describe("layout", () => {
     expect(screen.getByRole("link", { name: "Buscar" }).getAttribute("aria-current")).toBeNull();
   });
 
+  it("la cabecera deja un hueco para la sesión, que compone app/", () => {
+    render(<SiteHeader account={<a href="/entrar">Entrar</a>} />);
+    expect(screen.getByRole("link", { name: "Entrar" }).getAttribute("href")).toBe("/entrar");
+  });
+
   it("el enlace para saltar al contenido apunta al main", () => {
     render(<SkipLink />);
     expect(screen.getByRole("link", { name: "Saltar al contenido" }).getAttribute("href")).toBe(

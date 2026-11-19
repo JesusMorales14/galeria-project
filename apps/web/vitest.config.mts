@@ -13,6 +13,7 @@ export default defineConfig({
         "src/app/**/*.ts",
         "src/**/index.ts",
         "src/shared/ui/fonts.ts",
+        "src/proxy.ts",
         "src/**/*.test.{ts,tsx}",
       ],
       reporter: ["text-summary", "html", "lcov"],
@@ -20,6 +21,8 @@ export default defineConfig({
       thresholds: { lines: 80, functions: 80, branches: 75, statements: 80 },
     },
     environment: "jsdom",
+    // Margen para máquinas cargadas (turbo ejecuta los paquetes en paralelo): evita falsos fallos.
+    testTimeout: 15_000,
     include: ["src/**/*.test.{ts,tsx}"],
     exclude: ["e2e/**", "node_modules/**"],
     setupFiles: ["./vitest.setup.ts"],

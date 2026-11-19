@@ -1,34 +1,46 @@
 /*
- * Tokens de Galería: "sala de museo".
- * Pared cálida, tinta casi negra y un único acento burdeos. La obra manda.
+ * Tokens de Galería: «sala iluminada».
+ * Pared fría (gris de Payne), un único acento ultramar y una luz cálida (amarillo de Nápoles)
+ * que solo existe como foco sobre la obra. Ver DESIGN.md.
  * Se consumen como utilidades de Tailwind (bg-wall, text-ink, font-display…)
  * o como variables CSS (var(--color-ink)).
  */
 
 :root {
-  --wall: #f4f1ea; /* yeso cálido: fondo de página */
-  --surface: #fbfaf7; /* superficies elevadas: formularios, visor */
-  --ink: #1c1b18; /* texto principal */
-  --ink-muted: #5e5a52; /* cartelas, metadatos (6,3:1 sobre wall) */
-  --line: #d9d3c7; /* separadores y bordes */
-  --accent: #7b2d26; /* burdeos: enlaces, foco, estado activo */
-  --accent-ink: #fbfaf7; /* texto sobre acento */
-  --danger: #8f1d1d;
-  --placeholder: #e7e2d8; /* hueco de imagen mientras carga */
+  --wall: #dfe3de; /* gris de Payne muy claro: fondo de página */
+  --surface: #eef1ec; /* superficies elevadas: formularios, visor */
+  --ink: #1b2129; /* texto principal (12,5:1 sobre wall) */
+  --ink-muted: #4b5560; /* cartelas y metadatos (5,9:1 sobre wall) */
+  --line: #bfc6c0; /* separadores decorativos de 1px */
+  --edge: #727c85; /* bordes de controles: ≥ 3:1 (WCAG 1.4.11) */
+  --accent: #2b3bb8; /* ultramar: enlaces, foco, estado activo (6,7:1) */
+  --accent-ink: #f4f6f2; /* texto sobre acento */
+  --danger: #9b1c1c;
+  --placeholder: #cfd5cf; /* hueco de imagen mientras carga */
+  --light: #f3cf7a; /* amarillo de Nápoles: solo como luz de foco */
+
+  /* La sala oscura del héroe es igual en los dos modos: es un lugar, no un tema. */
+  --night: #141a20;
+  --night-surface: #1b232b;
+  --night-ink: #e8ebe5;
+  --night-ink-muted: #9ba5ad;
+
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --wall: #141311; /* sala oscura */
-    --surface: #1c1b18;
-    --ink: #ede8df;
-    --ink-muted: #a39c90;
-    --line: #34312c;
-    --accent: #d99a8c;
-    --accent-ink: #141311;
-    --danger: #f0a8a0;
-    --placeholder: #24221e;
+    --wall: #141a20;
+    --surface: #1b232b;
+    --ink: #e8ebe5;
+    --ink-muted: #9ba5ad;
+    --line: #2d3740;
+    --edge: #6a757e;
+    --accent: #9aa6ff;
+    --accent-ink: #10142a;
+    --danger: #ffaba3;
+    --placeholder: #222b33;
+    --night: #0f1418;
     color-scheme: dark;
   }
 }
@@ -39,37 +51,62 @@
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-line: var(--line);
+  --color-edge: var(--edge);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
   --color-placeholder: var(--placeholder);
+  --color-light: var(--light);
+  --color-night: var(--night);
+  --color-night-surface: var(--night-surface);
+  --color-night-ink: var(--night-ink);
+  --color-night-ink-muted: var(--night-ink-muted);
 
-  --font-display: var(--font-newsreader, "Newsreader Variable"), "Iowan Old Style", Georgia, serif;
-  --font-sans:
-    var(--font-instrument, "Instrument Sans Variable"), ui-sans-serif, system-ui, sans-serif;
+  --font-display:
+    var(--font-shoulders, "Big Shoulders Variable"), "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-serif: var(--font-newsreader, "Newsreader Variable"), "Iowan Old Style", Georgia, serif;
+  /* Controles y cartelas cortas: la misma familia del rótulo, en su corte de texto. */
+  --font-sans: var(--font-display);
 
   --radius-control: 2px;
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-hang: cubic-bezier(0.34, 1.4, 0.64, 1);
 }
 
 @theme {
-  --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.75rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.025em;
-  --text-title: clamp(1.75rem, 1.4rem + 1.4vw, 2.5rem);
-  --text-title--line-height: 1.1;
-  --text-title--letter-spacing: -0.02em;
-  --text-label: 0.8125rem;
-  --text-label--line-height: 1.35;
+  --text-banner: clamp(4.5rem, 32.5vw - 0.75rem, 26rem); /* «Galería» ocupa el ancho */
+  --text-banner--line-height: 0.8;
+  --text-banner--letter-spacing: -0.01em;
+  --text-banner--font-weight: 900;
+  --text-display: clamp(3rem, 1.9rem + 4.6vw, 6rem);
+  --text-display--line-height: 0.92;
+  --text-display--letter-spacing: -0.005em;
+  --text-display--font-weight: 800;
+  --text-title: clamp(2rem, 1.5rem + 2vw, 3.25rem);
+  --text-title--line-height: 0.98;
+  --text-title--letter-spacing: 0;
+  --text-title--font-weight: 700;
+  --text-label: 0.9375rem;
+  --text-label--line-height: 1.3;
 }
 
 @layer base {
   html {
     background: var(--wall);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Big Shoulders cambia de dibujo con el tamaño (eje óptico): estrecho en rótulos, abierto en texto. */
+  .font-display,
+  .font-sans,
+  button,
+  input,
+  select,
+  textarea {
+    font-optical-sizing: auto;
   }
 
   ::selection {
@@ -104,10 +141,9 @@
   }
 
   kbd {
-    font-family: inherit;
+    font-family: var(--font-sans);
     font-size: 0.9em;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-control);
+    border: 1px solid var(--edge);
     padding: 0 0.35em;
     background: var(--surface);
   }
@@ -121,8 +157,16 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* Las cartelas siempre van en la tipografía de rótulos, como en una sala. */
+@layer utilities {
+  .text-label {
+    font-family: var(--font-sans);
   }
 }

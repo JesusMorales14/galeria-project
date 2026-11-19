@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
+import { AccountMenu, AccountMenuFallback } from "@/features/auth";
 import { siteConfig, siteUrl } from "@/shared/config";
 import { SiteFooter, SiteHeader, SkipLink } from "@/shared/layout";
 import { WebVitals } from "@/shared/observability";
-import { instrumentSans, newsreader } from "@/shared/ui/fonts";
+import { bigShoulders, newsreader } from "@/shared/ui/fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,11 +21,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang={siteConfig.locale}
-      className={`${newsreader.variable} ${instrumentSans.variable} h-full`}
+      className={`${bigShoulders.variable} ${newsreader.variable} h-full`}
     >
       <body className="flex min-h-full flex-col bg-wall text-ink antialiased">
         <SkipLink />
-        <SiteHeader />
+        <SiteHeader
+          account={
+            <Suspense fallback={<AccountMenuFallback />}>
+              <AccountMenu />
+            </Suspense>
+          }
+        />
         <div id="contenido" tabIndex={-1} className="flex flex-1 flex-col outline-none">
           {children}
         </div>

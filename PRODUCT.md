@@ -18,7 +18,8 @@ Explorar la colección pública del Art Institute of Chicago con tres tareas de 
 
 1. **Descubrir** obras sin saber qué buscar (portada y obras destacadas).
 2. **Buscar** una obra concreta con texto, filtros y orden.
-3. **Guardar** obras en colecciones propias y compartirlas por enlace, sin cuentas ni backend.
+3. **Guardar** obras en colecciones propias y compartirlas por enlace, sin backend propio.
+4. **Entrar** con una cuenta (registro, acceso y sesión que se renueva sola). Hay una cuenta de demostración.
 
 Éxito: un reclutador abre el sitio, encuentra y amplía una obra y guarda una colección en menos de dos minutos, sin errores ni pantallas en blanco; y al abrir el repositorio entiende por qué cada decisión técnica se tomó así.
 
@@ -43,7 +44,7 @@ Es un caso de estudio de ingeniería frontend con forma de producto real: cada d
 ## Brand Commitments
 
 - Nombre: **Galería**.
-- Tono: **museo**. Sobrio, respetuoso con la obra, sin adornos que compitan con ella. La interfaz se retira y la obra manda.
+- Tono: **museo en penumbra**. La obra manda y recibe la luz; la interfaz es la sala. Identidad «sala iluminada» ([ADR 0010](docs/adr/0010-identidad-y-movimiento.md)).
 - **Anti-referencias (inferido, pendiente de confirmar por Jesús):** no debe parecer una plantilla genérica de SaaS (gradientes, tarjetas con sombra por todas partes, iconos decorativos), ni una tienda online de láminas, ni un banco de imágenes.
 
 ## Evidence on Hand

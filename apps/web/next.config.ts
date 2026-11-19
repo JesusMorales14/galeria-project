@@ -1,8 +1,24 @@
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs/config";
+import { securityHeaders } from "./src/shared/security/headers";
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
+  poweredByHeader: false,
+  // En la imagen Docker (NEXT_OUTPUT=standalone): servidor autónomo con solo las dependencias
+  // que usa. La raíz de trazado es la del monorepo para incluir packages/*.
+  ...(process.env.NEXT_OUTPUT === "standalone" && {
+    output: "standalone" as const,
+    outputFileTracingRoot: fileURLToPath(new URL("../../", import.meta.url)),
+  }),
+  // Memoización automática de componentes y valores: solo se re-renderiza lo que cambia,
+  // sin useMemo/useCallback/React.memo escritos a mano.
+  reactCompiler: true,
+  async headers() {
+    const isDev = process.env.NODE_ENV === "development";
+    return [{ source: "/:path*", headers: securityHeaders(isDev) }];
+  },
   partialPrefetching: true,
   turbopack: {
     rules: {

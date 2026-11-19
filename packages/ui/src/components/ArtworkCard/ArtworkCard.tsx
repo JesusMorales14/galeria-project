@@ -38,9 +38,19 @@ export function ArtworkCard({
         className,
       )}
     >
-      <div className="overflow-hidden bg-placeholder">{media}</div>
+      {/* Al mirar una obra, le cae la luz del foco desde arriba. */}
+      <div
+        className={cn(
+          "relative overflow-hidden bg-placeholder",
+          "after:pointer-events-none after:absolute after:inset-0 after:opacity-0",
+          "after:bg-[radial-gradient(ellipse_75%_60%_at_50%_0%,color-mix(in_oklab,var(--light)_38%,transparent),transparent_75%)]",
+          "after:transition-opacity after:duration-500 after:ease-out-expo group-hover:after:opacity-100",
+        )}
+      >
+        {media}
+      </div>
       <div className="flex flex-col gap-1">
-        <Heading className="font-display text-lg leading-snug text-ink italic">
+        <Heading className="font-serif text-lg leading-snug text-ink italic">
           <Link
             href={href}
             className="decoration-accent underline-offset-4 outline-none group-hover:underline after:absolute after:inset-0"
@@ -48,8 +58,8 @@ export function ArtworkCard({
             {title}
           </Link>
         </Heading>
-        <p className="text-label text-ink-muted">{artist ?? "Artista desconocido"}</p>
-        {date && <p className="text-label text-ink-muted tabular-nums">{date}</p>}
+        <p className="font-sans text-label text-ink-muted">{artist ?? "Artista desconocido"}</p>
+        {date && <p className="font-sans text-label text-ink-muted tabular-nums">{date}</p>}
       </div>
     </article>
   );
