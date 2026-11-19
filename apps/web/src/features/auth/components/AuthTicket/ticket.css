@@ -1,0 +1,78 @@
+/*
+ * La entrada del museo: talón ultramar a la izquierda, línea perforada y dos muescas.
+ * Al cargar, se «imprime»: aparece de arriba abajo, como saliendo de la taquilla.
+ */
+
+.entrada {
+  --notch: 0.9rem;
+  --stub: 6.5rem;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--surface);
+  box-shadow: 0 1.5rem 3rem -1.75rem rgb(0 0 0 / 0.35);
+  animation: print 0.9s var(--ease-out-expo) both;
+}
+
+.entrada-talon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.entrada-cuerpo {
+  border-top: 2px dashed color-mix(in oklab, var(--edge) 70%, transparent);
+}
+
+@media (min-width: 40rem) {
+  .entrada {
+    grid-template-rows: none;
+    grid-template-columns: var(--stub) 1fr;
+    /* Muescas: dos semicírculos recortados en la línea perforada. */
+    mask:
+      radial-gradient(circle at var(--stub) 0, #0000 var(--notch), #000 calc(var(--notch) + 0.5px))
+        top / 100% 51% no-repeat,
+      radial-gradient(
+          circle at var(--stub) 100%,
+          #0000 var(--notch),
+          #000 calc(var(--notch) + 0.5px)
+        )
+        bottom / 100% 51% no-repeat;
+  }
+
+  .entrada-talon {
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem 0;
+  }
+
+  .entrada-vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .entrada-cuerpo {
+    border-top: 0;
+    border-left: 2px dashed color-mix(in oklab, var(--edge) 70%, transparent);
+  }
+}
+
+@keyframes print {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(-0.75rem);
+  }
+  to {
+    clip-path: inset(0 0 -3rem 0);
+  }
+}
+
+@media (forced-colors: active) {
+  .entrada {
+    border: 1px solid CanvasText;
+    mask: none;
+  }
+}

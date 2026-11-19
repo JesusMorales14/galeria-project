@@ -1,13 +1,14 @@
 import type { CSSProperties, KeyboardEvent, RefObject } from "react";
 import { cn } from "../../lib/cn";
+import { transformOf } from "./useLiveZoom";
 import type { ZoomState } from "./zoomState";
 
 type ZoomViewportProps = {
   viewportRef: RefObject<HTMLDivElement | null>;
+  imageRef: RefObject<HTMLImageElement | null>;
   id: string;
   helpId: string;
   state: ZoomState;
-  gesturing: boolean;
   image: { src: string; srcSet?: string; width: number | null; height: number | null; alt: string };
   placeholder?: string | null;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
@@ -16,10 +17,10 @@ type ZoomViewportProps = {
 /** Área enfocable donde se ve y se mueve la imagen. */
 export function ZoomViewport({
   viewportRef,
+  imageRef,
   id,
   helpId,
   state,
-  gesturing,
   image,
   placeholder,
   onKeyDown,
@@ -52,6 +53,7 @@ export function ZoomViewport({
       style={style}
     >
       <img
+        ref={imageRef}
         src={image.src}
         srcSet={image.srcSet}
         sizes={sizes}
@@ -62,9 +64,10 @@ export function ZoomViewport({
         fetchPriority="high"
         className={cn(
           "block h-full w-full object-contain will-change-transform",
-          !gesturing && "transition-transform duration-300 ease-out-expo",
+          // Durante un gesto (data-gesturing en el visor) la imagen sigue al dedo sin animar.
+          "transition-transform duration-300 ease-out-expo in-data-gesturing:transition-none",
         )}
-        style={{ transform: `translate(${state.x}px, ${state.y}px) scale(${state.scale})` }}
+        style={{ transform: transformOf(state) }}
       />
     </div>
   );

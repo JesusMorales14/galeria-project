@@ -3,7 +3,7 @@ export { ArtworkCard, type ArtworkCardProps } from "./components/ArtworkCard";
 export { ArtworkImage, type ArtworkImageProps } from "./components/ArtworkImage";
 export { Button, buttonStyles, type ButtonProps } from "./components/Button";
 export { EmptyState, type EmptyStateProps } from "./components/EmptyState";
-export { Field, Select, TextInput, type FieldProps } from "./components/Field";
+export { Field, fieldDescriptionIds, Select, TextInput, type FieldProps } from "./components/Field";
 export { ErrorState, type ErrorStateProps } from "./components/ErrorState";
 export { ArtworkCardSkeleton, Skeleton } from "./components/Skeleton";
 export { Slot } from "./components/Slot";

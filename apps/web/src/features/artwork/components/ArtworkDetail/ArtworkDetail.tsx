@@ -21,7 +21,9 @@ export function ArtworkDetail({ artwork, actions, media }: ArtworkDetailProps) {
       </div>
       <div className="flex flex-col gap-8">
         <header className="flex flex-col gap-3">
-          <h1 className="font-display text-title text-ink italic">{artwork.title}</h1>
+          <h1 className="font-serif text-[clamp(2rem,1.5rem+1.8vw,3rem)] leading-[1.05] font-normal text-ink italic">
+            {artwork.title}
+          </h1>
           <p className="text-lg whitespace-pre-line text-ink-muted">
             {artwork.artistDisplay ?? artwork.artist ?? "Artista desconocido"}
           </p>

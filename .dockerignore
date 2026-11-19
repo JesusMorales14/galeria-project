@@ -1,0 +1,18 @@
+# Lo que no debe entrar en el contexto de build (más rápido y sin filtrar secretos locales).
+**/node_modules
+**/.next
+**/.turbo
+**/coverage
+**/test-results
+**/playwright-report
+**/storybook-static
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+!**/.env.example
+.git
+.agents
+.claude
+.vscode
+Claude outputs
+docs

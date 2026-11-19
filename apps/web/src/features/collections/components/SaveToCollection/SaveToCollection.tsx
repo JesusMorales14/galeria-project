@@ -5,6 +5,7 @@ import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { Button, LiveRegion } from "@galeria/ui";
 import { useCollections } from "../../hooks/useCollections";
 import type { Collection } from "../../lib/collection";
+import { playPinAnimation } from "../../lib/pinAnimation";
 import { saveLabel } from "./saveLabel";
 import { SavePanel } from "./SavePanel";
 
@@ -15,6 +16,8 @@ export function SaveToCollection({ artworkId, artworkTitle }: SaveToCollectionPr
   const { collections, create, addArtwork, removeArtwork } = useCollections();
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  // El marcador cae solo cuando la persona guarda, no cuando cargan las colecciones.
+  const iconRef = useRef<SVGSVGElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelId = useId();
   const savedIn = collections?.filter((c) => c.artworkIds.includes(artworkId)).length ?? 0;
@@ -23,11 +26,13 @@ export function SaveToCollection({ artworkId, artworkTitle }: SaveToCollectionPr
     await (checked
       ? addArtwork(collection.id, artworkId)
       : removeArtwork(collection.id, artworkId));
+    if (checked) playPinAnimation(iconRef.current);
     setMessage(`${artworkTitle} ${checked ? "guardada en" : "quitada de"} ${collection.name}`);
   }
 
   async function createWithArtwork(name: string) {
     await create(name, [artworkId]);
+    playPinAnimation(iconRef.current);
     setMessage(`${artworkTitle} guardada en la nueva colección ${name}`);
   }
 
@@ -51,6 +56,7 @@ export function SaveToCollection({ artworkId, artworkTitle }: SaveToCollectionPr
       >
         <Bookmark
           aria-hidden="true"
+          ref={iconRef}
           className="size-4"
           fill={savedIn > 0 ? "currentColor" : "none"}
         />

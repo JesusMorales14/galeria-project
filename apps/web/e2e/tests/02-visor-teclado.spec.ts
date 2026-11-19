@@ -3,7 +3,10 @@ import { expectAccessible } from "../support/axe";
 
 test("el visor de zoom se usa solo con el teclado", async ({ page }) => {
   await page.goto("/obra/27992");
-  const viewer = page.getByRole("application", { name: /A Sunday on La Grande Jatte/ });
+  // El visor se nombra con el texto alternativo del museo; su región lleva el título de la obra.
+  const viewer = page
+    .getByRole("region", { name: /Visor de zoom: A Sunday on La Grande Jatte/ })
+    .getByRole("application");
   const status = page.getByRole("status").filter({ hasText: /^Zoom/ });
 
   await viewer.focus();

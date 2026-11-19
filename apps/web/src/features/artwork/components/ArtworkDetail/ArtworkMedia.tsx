@@ -1,12 +1,13 @@
 import type { Artwork } from "@galeria/api-client";
 import { buildImageSrcSet, buildImageUrl } from "@galeria/api-client/images";
 import { ZoomViewer } from "@galeria/ui";
-import { artworkAltText, DEFAULT_WIDTH, viaProxy } from "@/shared/artwork";
+import { artworkAltText, artworkTransition, DEFAULT_WIDTH, viaProxy } from "@/shared/artwork";
 
 /**
  * Imagen principal con visor de zoom. Es el LCP de la página: se pide con prioridad.
  * Al acercar, el visor amplía `sizes` y el navegador pide la versión de 1686 px
  * (recomendada por el museo para obras de dominio público cuando hay una necesidad clara).
+ * La imagen comparte nombre de transición con la miniatura: viaja desde la cuadrícula.
  */
 export function ArtworkMedia({ artwork }: { artwork: Artwork }) {
   if (!artwork.image) {
@@ -26,6 +27,7 @@ export function ArtworkMedia({ artwork }: { artwork: Artwork }) {
       alt={artworkAltText(artwork)}
       title={artwork.title}
       placeholder={artwork.image.lqip}
+      transition={artworkTransition(artwork.id)}
     />
   );
 }

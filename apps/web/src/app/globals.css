@@ -3,3 +3,36 @@
 
 /* Tailwind genera también las clases que usan los componentes del design system. */
 @source "../../../../packages/ui/src";
+
+/*
+ * Transiciones entre páginas (View Transitions API, vía React <ViewTransition>).
+ * La obra viaja de la miniatura a la ficha; el resto de la página se funde sin moverse.
+ */
+::view-transition-group(.obra-viaja) {
+  animation-duration: 520ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+::view-transition-image-pair(.obra-viaja) {
+  animation-name: obra-viaja-foco;
+}
+
+/* A mitad de viaje la imagen se desenfoca un instante: oculta el salto de resolución. */
+@keyframes obra-viaja-foco {
+  35% {
+    filter: blur(2px) brightness(1.08);
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 240ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

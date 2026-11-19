@@ -1,6 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-const colors = ["wall", "surface", "ink", "ink-muted", "line", "accent", "placeholder", "danger"];
+const colors = [
+  "wall",
+  "surface",
+  "ink",
+  "ink-muted",
+  "line",
+  "edge",
+  "accent",
+  "light",
+  "night",
+  "placeholder",
+  "danger",
+];
 
 function Tokens() {
   return (
@@ -19,12 +31,12 @@ function Tokens() {
       <section className="flex flex-col gap-3">
         <h2 className="font-display text-title">Tipografía</h2>
         <p className="font-display text-display">Galería</p>
-        <p className="font-display text-title italic">A Sunday on La Grande Jatte</p>
+        <p className="font-serif text-title italic">A Sunday on La Grande Jatte</p>
         <p className="max-w-prose">
-          Texto de lectura en Instrument Sans. Las cartelas usan el tamaño label y el color
-          atenuado.
+          Texto de lectura en Newsreader. Rótulos, controles y cartelas usan Big Shoulders, la
+          tipografía cívica de Chicago.
         </p>
-        <p className="text-label text-ink-muted tabular-nums">
+        <p className="font-sans text-label text-ink-muted tabular-nums">
           Georges Seurat, 1884–86. 207,5 × 308,1 cm
         </p>
       </section>
